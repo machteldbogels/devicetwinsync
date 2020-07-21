@@ -13,6 +13,16 @@
 * No throttling limits on reads/writes
 * More freedom in building applications on top of your device twins
 
+## Configuring IoT Hub to route device twin changes to Event Hubs
+
+
+## Creating Event Hub-triggered Azure Functions
+
+
+## Retrieving existing device twins from Cosmos DB and update where necessary
+
+
+
 
 *Since the IoT Hub imposes throttling limits on reading the device twins, we replicate the twins to a Cosmos DB container. Once a device twin is updated in IoT Hub, the message routing feature for twin change events in IoT Hub sends an event to an Event Hub, which then triggers this function to update the twin in a Cosmos DB container. This function is fed by the same Event Hub with twin change events as the above Downlink function.*
 
