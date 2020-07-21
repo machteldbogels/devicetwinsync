@@ -8,24 +8,37 @@
 ![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/architecture.png?raw=true)
 
 
-## Advantages of storing your device twins in Cosmos DB
+## Context
+Since the IoT Hub imposes throttling limits on reading the device twins, we replicate the twins to a Cosmos DB container. Once a device twin is updated in IoT Hub, the message routing feature for twin change events in IoT Hub sends an event to an Event Hub, which then triggers this function to update the twin in a Cosmos DB container. This is also done for lifecycle events, sending an event to Event Hub when a device is deleted or created, triggering this function to replicate that operation on the device twin in the Cosmos DB container.*
+
+**Advantages of storing Device Twins in Cosmos DB**
 * Auto-scaling of Request Units
 * No throttling limits on reads/writes
 * More freedom in building applications on top of your device twins
 
-## Configuring IoT Hub to route device twin changes to Event Hubs
+## Configuring IoT Hub to route Device Twin changes towards Event Hubs
+*add picture of configuration*
 
 
 ## Creating Event Hub-triggered Azure Functions
+*add picture from VS code/portal?*
+
+## Creating or Deleting a Device Twin in Cosmos DB using the LifecycleUpdates function
+The code for this function can be found [here][https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js]
+
+*The environment variables that point to the endpoint and key of your Cosmos DB instance can be stored either locally or within an Azure Key Vault for example.*
 
 
-## Retrieving existing device twins from Cosmos DB and update where necessary
+## Updating a Device Twin in Cosmos DB using the TwinChanges function
+The code for this function can be found [here][https://github.com/machteldbogels/devicetwinsync/blob/master/TwinChanges/index.js]
+
+The schema of the event consists of properties as well as the message body:
+
+*add schema example*
+
+**Partial Updates**
+At the moment, the Cosmos DB SQL API does not support partial updates, so therefore the db has to be queried in order to retrieve the existing
 
 
-
-
-*Since the IoT Hub imposes throttling limits on reading the device twins, we replicate the twins to a Cosmos DB container. Once a device twin is updated in IoT Hub, the message routing feature for twin change events in IoT Hub sends an event to an Event Hub, which then triggers this function to update the twin in a Cosmos DB container. This function is fed by the same Event Hub with twin change events as the above Downlink function.*
-
-*Similar to the TwinReplication function, the message routing feature in IoT Hub is used for lifecycle events, sending an event to Event Hub when a device is deleted or created, triggering this function to replicate that operation on the device twin in the Cosmos DB container.*
 
 
