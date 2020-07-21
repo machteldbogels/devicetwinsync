@@ -16,27 +16,37 @@ Since the IoT Hub imposes throttling limits on reading the device twins, we repl
 * No throttling limits on reads/writes
 * More freedom in building applications on top of your device twins
 
-## Configuring IoT Hub to route Device Twin changes towards Event Hubs
+## Configuring IoT Hub to route Device Twin changes and Lifecycle events towards Event Hubs
 *add picture of configuration*
 
+The schema of the events consist of properties as well as the message body:
+
+```
+*add schema example*
+```
 
 ## Creating Event Hub-triggered Azure Functions
 *add picture from VS code/portal?*
 
 ## Creating or Deleting a Device Twin in Cosmos DB using the LifecycleUpdates function
-The code for this function can be found [here][https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js]
+The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js)
 
 *The environment variables that point to the endpoint and key of your Cosmos DB instance can be stored either locally or within an Azure Key Vault for example.*
 
 
 ## Updating a Device Twin in Cosmos DB using the TwinChanges function
-The code for this function can be found [here][https://github.com/machteldbogels/devicetwinsync/blob/master/TwinChanges/index.js]
+The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/TwinChanges/index.js)
 
-The schema of the event consists of properties as well as the message body:
 
-*add schema example*
+By default only the message body is written to Cosmos DB. Since we also want to know the DeviceId as well as the Event Type, two properties from the event are added to the message body:
 
-**Partial Updates**
+```
+        // Update event message with id, deviceid and eventType
+        var updatedDeviceDetails = myEventHubMessage[i];      
+        updatedDeviceDetails["deviceid"] = deviceid;
+        updatedDeviceDetails["eventType"] = eventType;
+```
+
 At the moment, the Cosmos DB SQL API does not support partial updates, so therefore the db has to be queried in order to retrieve the existing
 
 

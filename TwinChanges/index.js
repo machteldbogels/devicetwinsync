@@ -29,8 +29,7 @@ module.exports = async function (context, myEventHubMessage) {
         context.log("The following event happened: " + eventType + " for device " + deviceid);
 
         // Update event message with id, deviceid and eventType
-        var updatedDeviceDetails = myEventHubMessage[i];  
-        updatedDeviceDetails["id"] = deviceid;      
+        var updatedDeviceDetails = myEventHubMessage[i];       
         updatedDeviceDetails["deviceid"] = deviceid;
         updatedDeviceDetails["eventType"] = eventType;
         
