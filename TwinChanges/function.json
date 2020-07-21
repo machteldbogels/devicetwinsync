@@ -1,0 +1,13 @@
+{
+  "bindings": [
+    {
+      "type": "eventHubTrigger",
+      "name": "myEventHubMessage",
+      "direction": "in",
+      "eventHubName": "twinchanges",
+      "connection": "EventHubIngestConnectionstring",
+      "cardinality": "many",
+      "consumerGroup": "devicetriplet"
+    }
+  ]
+}
