@@ -23,15 +23,11 @@ There you would need to `Add an endpoint` which points to the Event Hub you woul
 
 Repeat this process to create another Message routing for the `Device Twin Changes Events` which points to another Event Hub instance (which can be within the same Event Hub Namespace as the previous one).
 
+Under the `Test` tab, visible at the bottom of the page when creating a new Message routing, you can see an example of the schema of  each event, including the `System Properties`, `Application Properties`, the `Message Body` and the `Device Twin`. 
 
-The schema of the events that are being sent to these Event Hubs consists of some properties as well as the message body containing the changes that occurred, for example:
-
-```
-*add schema example*
-```
 
 ### Creating Event Hub-triggered Azure Functions
-*add picture from VS code/portal?*
+Creating a new Azure Function can easily be done either through the portal or for example through Visual Studio Code. Doing it through VS code enables you to easily develop your code locally, and then instantly deploy it to an your Azure Function.
 
 ### Creating or Deleting a Device Twin in Cosmos DB using the LifecycleUpdates function
 The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js)
