@@ -28,28 +28,31 @@ Under the `Test` tab, visible at the bottom of the page when creating a new Mess
 
 ### Creating Event Hub-triggered Azure Functions
 First, a local project needs to be created inside an IDE to develop your code. In this example I'm using VS Code, since it has an Azure Functions extension allowing you to easily create Functions and deploy your code without having to go to the Azure Portal.
-When creating a local function in VS code, the first prompt you'll receive is to `Select a Language`, for which in this case `JavaScript` was used. The second prompt is to `Select a Template`, for which you'll have to select `Azure Event Hub Trigger`. After picking a name, you will need to `Create new local app setting` to set up the connection to the Event Hub where either one of your Message routes is sending events to. You can select a connection policy either at the namespace level, such as the `RootManageSharedAccessKey` or a policy that applies to a specific Event Hub. The last prompt you'll receive is to set the consumer group of the Event Hub that you're listening to. If you haven't specified any particular consumer group within the configuration of the Event Hub then you can leave the $Default setting.
+When creating a local function in VS code, the first prompt you'll receive is to `Select a Language`, for which in this case `JavaScript` was used. The second prompt is to `Select a Template`, for which you'll have to select `Azure Event Hub Trigger`. After picking a name, you will need to `Create new local app setting` to set up the connection to the Event Hub where either one of your Message routes is sending events to. 
+
+
+You can select a connection policy either at the namespace level, such as the `RootManageSharedAccessKey` or a policy that applies to a specific Event Hub. 
+After that, you'll select the policy that is set up between your IoT Hub and Event Hub, 
+
+
+The last prompt you'll receive is to set the consumer group of the Event Hub that you're listening to. If you haven't specified any particular consumer group within the configuration of the Event Hub then you can leave the `$Default` setting.
 
 ### Creating or Deleting a Device Twin in Cosmos DB using the LifecycleUpdates function
 The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js)
 
-*The environment variables that point to the endpoint and key of your Cosmos DB instance can be stored either locally or within an Azure Key Vault for example.*
+The environment variables that point to the endpoint and key of your Cosmos DB instance can be stored either locally or within an Azure Key Vault for example.
 
 
 ### Updating a Device Twin in Cosmos DB using the TwinChanges function
 The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/TwinChanges/index.js)
 
 
-By default only the message body is written to Cosmos DB. Since we also want to know the DeviceId as well as the Event Type, two properties from the event are added to the message body:
+Out of the four components which are visible during creation of the Route, namely the `System Properties`, `Application Properties`, `Message Body` and the `Device Twin`, by default only the `Message Body` is part of the event message that is written to Cosmos DB. Since we also want to know the `DeviceId` as well as the type of event (update/creation/deletion), visible as the `OpType` property within the `Application Properties`, these two values are added to the message body.
 
 ```
-        // Update event message with id, deviceid and eventType
-        var updatedDeviceDetails = myEventHubMessage[i];      
-        updatedDeviceDetails["deviceid"] = deviceid;
-        updatedDeviceDetails["eventType"] = eventType;
 ```
 
-At the moment, the Cosmos DB SQL API does not support partial updates, so therefore the db has to be queried in order to retrieve the existing
+At the moment, the Cosmos DB SQL API does not support partial updates, so therefore the db has to be queried in order to retrieve the existing Device Twins and update only the part of the JSON document for which an update has occurred, either for the reported or desired properties.
 
 
 
