@@ -27,7 +27,8 @@ Under the `Test` tab, visible at the bottom of the page when creating a new Mess
 
 
 ### Creating Event Hub-triggered Azure Functions
-Creating a new Azure Function can easily be done either through the portal or for example through Visual Studio Code. Doing it through VS code enables you to easily develop your code locally, and then instantly deploy it to an your Azure Function.
+First, a local project needs to be created inside an IDE to develop your code. In this example I'm using VS Code, since it has an Azure Functions extension allowing you to easily create Functions and deploy your code without having to go to the Azure Portal.
+When creating a local function in VS code, the first prompt you'll receive is to `Select a Language`, for which in this case `JavaScript` was used. The second prompt is to `Select a Template`, for which you'll have to select `Azure Event Hub Trigger`. After picking a name, you will need to `Create new local app setting` to set up the connection to the Event Hub where either one of your Message routes is sending events to. You can select a connection policy either at the namespace level, such as the `RootManageSharedAccessKey` or a policy that applies to a specific Event Hub. The last prompt you'll receive is to set the consumer group of the Event Hub that you're listening to. If you haven't specified any particular consumer group within the configuration of the Event Hub then you can leave the $Default setting.
 
 ### Creating or Deleting a Device Twin in Cosmos DB using the LifecycleUpdates function
 The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/LifecycleUpdates/index.js)
