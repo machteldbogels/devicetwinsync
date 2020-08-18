@@ -1,4 +1,5 @@
-# Duplicating device twins from IoT Hub to Cosmos DB using Azure Functions
+# Easily store and query your IoT device data by scaling storage instead of your cloud gateway
+Duplicating device twins from IoT Hub to Cosmos DB using Azure Functions
 
 ### Background
 IoT Hub is a service on Azure which can be used as a platform to ingest and manage all the communication from and to your devices. For every device that is connected to your IoT Hub, a Device Twin is created. Device Twins are JSON documents that store device state information including metadata, configurations, and conditions.  
@@ -46,11 +47,7 @@ The environment variables that point to the endpoint and key of your Cosmos DB i
 ### Updating a Device Twin in Cosmos DB using the TwinChanges function
 The code for this function can be found [here](https://github.com/machteldbogels/devicetwinsync/blob/master/TwinChanges/index.js)
 
-
 Out of the four components which are visible during creation of the Route, namely the `System Properties`, `Application Properties`, `Message Body` and the `Device Twin`, by default only the `Message Body` is part of the event message that is written to Cosmos DB. Since we also want to know the `DeviceId` as well as the type of event (update/creation/deletion), visible as the `OpType` property within the `Application Properties`, these two values are added to the message body.
-
-```
-```
 
 At the moment, the Cosmos DB SQL API does not support partial updates, so therefore the db has to be queried in order to retrieve the existing Device Twins and update only the part of the JSON document for which an update has occurred, either for the reported or desired properties.
 
