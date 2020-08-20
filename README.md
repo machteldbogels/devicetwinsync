@@ -16,13 +16,13 @@ In this scenario, Azure IoT Hub is used to showcase the context in which such a 
 - modularity
 
 ### Solution 
-![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/solution.png?raw=true)
+![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/arch.png?raw=true)
 
 
 
 
 ### Example
-![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/architecture.png?raw=true)
+![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/azure.png?raw=true)
 
 Whenever a Device Twin is created in IoT Hub, the message routing feature for Lifecycle 
 Once a change has occurred to an existing Device Twin in IoT Hub, the message routing feature for twin change events in IoT Hub sends an event to an Event Hub, which then triggers an Azure function to update the twin in Cosmos DB. This is also done for lifecycle events, sending an event to Event Hub when a device is deleted or created, triggering another Azure function to replicate that operation on the device twin in the Cosmos DB container.
