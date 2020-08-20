@@ -1,4 +1,4 @@
-# Scaling and querying Device Data outside of a Cloud Gateway
+# Scaling and querying Device Twins outside of a Cloud Gateway
 Duplicating device twins from IoT Hub to Cosmos DB using Azure Functions
 
 
