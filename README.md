@@ -1,4 +1,4 @@
-# Easily store and query your IoT device data by scaling storage instead of your cloud gateway
+# Scaling and querying Device Data outside of a Cloud Gateway
 Duplicating device twins from IoT Hub to Cosmos DB using Azure Functions
 
 
@@ -63,5 +63,5 @@ At the moment, the Cosmos DB SQL API does not support partial updates, so theref
 
 
 ### Related Patterns
-This example was developed as part of a larger solution, for which the code and explanation can be found [here:](https://github.com/jessevl/azure-iot-durable-patterns)
+This example was developed as part of a larger solution, for which the code and explanation can be found [here.](https://github.com/jessevl/azure-iot-durable-patterns)
 
