@@ -11,7 +11,7 @@ In this scenario, Azure IoT Hub is used to showcase the context in which such a 
 ### Forces
 - manageability
 - scalability
-- independence, composability
+- independence
 - evolvability
 - modularity
 - customization
