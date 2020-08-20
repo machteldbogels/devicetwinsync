@@ -9,6 +9,7 @@ Cloud gateway services provide the ability to ingest and manage all communicatio
 IoT Hub is a platform service on Azure which enables bidirectional communication to all your devices AMQP, MQTT and HTTP protocols (natively). For every device that is connected to your IoT Hub, a Device Twin is created. Device Twins are JSON documents that store device state information including metadata, configurations, and conditions. Each IoT Hub instance imposes throttling limits based on the service tier you are using. This implies that there is a maximum number of reads and writes on the database that stores your Device Twins, for which the documentation can be found [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling). To work around that, an option would be to replicate the Device Twins from IoT Hub to an external database which can store JSON files such as Cosmos DB. The advantage of this solution is that, in order to overcome the throttling limits, you only need to scale up the external storage rather than the whole instance of IoT Hub (which includes many services besides storage) In this way you won't run into performance issues when building an application that frequently reads from the database because you can scale dynamically based on your requirements. 
 
 ### Forces
+Multiple factors can be identified that contribute to the necessity of such a solution. 
 - manageability
 - scalability
 - independence, composability
