@@ -16,6 +16,8 @@ In this scenario, Azure IoT Hub is used to showcase the context in which such a 
 - modularity
 
 ### Solution 
+![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/solution.png?raw=true)
+
 
 
 
