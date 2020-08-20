@@ -15,7 +15,11 @@ In this scenario, Azure IoT Hub is used to showcase the context in which such a 
 - evolvability
 - modularity
 
-### Solution Example
+### Solution 
+
+
+
+### Example
 ![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/architecture.png?raw=true)
 
 Whenever a Device Twin is created in IoT Hub, the message routing feature for Lifecycle 
