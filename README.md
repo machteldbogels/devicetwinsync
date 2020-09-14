@@ -1,20 +1,18 @@
 # Replicating Device Twins outside your IoT Hub Gateway
-Using IoT Hub, Event Hub and Azure Functions
+Using IoT Hub, Cosmos DB, Event Hub and Azure Functions
 
 
 ### Problem
 Cloud gateway services provide the ability to ingest and manage all communication from and to your devices. Within those services, typically every physical device has a digital representation inside a registry where information is stored about the device, such as its device id, connection status and other properties that describe its latest known information. This device data is very relevant to end users as it shows important device health information which in many cases needs to be handled upon. Therefore, it is important to have the freedom to build applications on top of that data without being constrained by scalability and accessing underlying storage according to your development needs. 
 
 ### Context
-In this scenario, Azure IoT Hub is used to showcase the context in which such a solution could be useful. IoT Hub is a platform service on Azure which enables bidirectional communication to all your devices AMQP, MQTT and HTTP protocols (natively). For every device that is connected to your IoT Hub, a Device Twin is created. Device Twins are JSON documents that store device state information including metadata, configurations, and conditions. Each IoT Hub instance imposes throttling limits based on the service tier you are using. This implies that there is a maximum number of reads and writes on the database that stores your Device Twins, for which the documentation can be found [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling). To work around that, an option would be to replicate the Device Twins from IoT Hub to an external database which can store JSON files such as Cosmos DB. The advantage of this solution is that, in order to overcome the throttling limits, you only need to scale up the external storage rather than the whole instance of IoT Hub (which includes many services besides storage) In this way you won't run into performance issues when building an application that frequently reads from the database because you can scale dynamically based on your requirements. 
+In this scenario, Azure IoT Hub is used to exemplify the context in which such a solution could be useful. IoT Hub is a platform service on Azure which enables bidirectional communication to IoT devices using AMQP, MQTT or HTTP protocols (natively). For every device that is connected to an IoT Hub, a Device Twin is created. Device Twins are basically JSON documents that store device state information including metadata, configurations, and conditions. Each IoT Hub instance imposes throttling limits based on the service tier that is used. This implies that there is a maximum number of reads and writes on the database that stores your Device Twins, for which the documentation can be found [here](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-quotas-throttling). This means that if you want build an application/dashboard or any other solution that often queries the device twin storage, you would need to scale up the whole IoT Hub instance, whereas in reality you might only use the storage part of all the higher tiered services. A solution for this would be to replicate the Device Twins to an external database which can store JSON documents, such as Cosmos DB. In that way, you can easily scale just your storage solution rather than paying for services you don't use. 
 
 ### Drivers
 Building a solution that circumvents the current scenario will improve its scalability and independence. Since the different elements are instantiated separately, the solution becomes more modular and can easily be redesigned to adapt to a changing or new scenario in the future. 
 
 ### Solution 
 ![](https://github.com/machteldbogels/devicetwinsync/blob/master/images/arch.png?raw=true)
-
-
 
 
 ### Example
