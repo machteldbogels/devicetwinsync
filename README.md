@@ -1,4 +1,4 @@
-# Replicating Device Twins outside your IoT Hub Gateway
+# Replicating Device Twins outside an IoT Hub Gateway
 Using IoT Hub, Cosmos DB, Event Hub and Azure Functions
 
 
